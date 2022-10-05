@@ -16,14 +16,13 @@ class ViewController: UIViewController {
         btn.addTarget(self, action: #selector(waButtonTapped), for: .touchUpInside)
         return btn
     }()
-    private var viewModel: WhatsAppViewModel?
+    private var viewModel = WhatsAppViewModel()
     var exUser: User = User(name: "daniel", email: "asbc@gami.com", phoneNumber: 6282119470531)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupUI()
-//        addUser()
     }
 
     func addUser() {
@@ -39,8 +38,11 @@ class ViewController: UIViewController {
     
     @objc
     func waButtonTapped() {
-        let phone: String = viewModel?.createLink(number: exUser.phoneNumber) ?? "nil"
-        print(exUser.phoneNumber)
+        let urlWAString: String = viewModel.createLink(number: exUser.phoneNumber)
+//        print(exUser.phoneNumber)
+        if let urlWA = URL(string: urlWAString) {
+            UIApplication.shared.open(urlWA)
+        }
     }
 }
 
